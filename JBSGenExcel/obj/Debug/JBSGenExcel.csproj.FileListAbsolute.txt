@@ -1,0 +1,14 @@
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\JBSGenExcel.exe.config
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\JBSGenExcel.exe
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\JBSGenExcel.pdb
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\MySql.Data.dll
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.dll
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.OOXML.dll
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\MySql.Data.xml
+C:\Dariaman\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.xml
+C:\Dariaman\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.exe
+C:\Dariaman\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.pdb
+C:\Dariaman\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.csprojResolveAssemblyReference.cache
