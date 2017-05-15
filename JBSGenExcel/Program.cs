@@ -22,28 +22,28 @@ namespace JBSGenExcel
         static string VaRegulerPremi = "VARegulerPremi" + DateTime.Now.ToString("yyyyMMdd") + ".xls";
         static void Main(string[] args)
         {
-            if (args[0] == "mandiricc")
-            {
+            //if (args[0] == "mandiricc")
+            //{
                 FileInfo FileName = new FileInfo(DirBilling + MandiriccFile);
                 if (!FileName.Exists)
                 {
                     genMandiriCC();
                 }
-            }
-            else if (args[0] == "bcaac")
-            {
-                FileInfo FileName = new FileInfo(DirBilling + BCAacFile);
-                if (!FileName.Exists)
-                {
-                    genBCAac();
-                }
-            }
-            else if (args[0] == "va")
-            {
-                FileInfo FileName = new FileInfo(DirBilling + VaRegulerPremi);
-                if (FileName.Exists) { FileName.Delete(); }
-                genVARegulerPremi();
-            }
+            //}
+            //else if (args[0] == "bcaac")
+            //{
+            //    FileInfo FileName = new FileInfo(DirBilling + BCAacFile);
+            //    if (!FileName.Exists)
+            //    {
+            //        genBCAac();
+            //    }
+            //}
+            //else if (args[0] == "va")
+            //{
+            //    FileInfo FileName = new FileInfo(DirBilling + VaRegulerPremi);
+            //    if (FileName.Exists) { FileName.Delete(); }
+            //    genVARegulerPremi();
+            //}
         }
         public static void genMandiriCC()
         {
@@ -90,12 +90,20 @@ namespace JBSGenExcel
                         while (reader.Read())
                         {
                             IRow row = sheet.GetRow(i);
+                            if (row == null)  row = sheet.CreateRow(i);
+                            if (row.GetCell(0) == null) row.CreateCell(0);
                             row.GetCell(0).SetCellValue(j);
+                            if (row.GetCell(2) == null) row.CreateCell(2);
                             row.GetCell(2).SetCellValue(reader["a"].ToString());
+                            if (row.GetCell(4) == null) row.CreateCell(4);
                             row.GetCell(4).SetCellValue(reader["b"].ToString());
+                            if (row.GetCell(6) == null) row.CreateCell(6);
                             row.GetCell(6).SetCellValue(reader["c"].ToString());
+                            if (row.GetCell(8) == null) row.CreateCell(8);
                             row.GetCell(8).SetCellValue(reader["d"].ToString());
+                            if (row.GetCell(10) == null) row.CreateCell(10);
                             row.GetCell(10).SetCellValue(reader["e"].ToString());
+                            if (row.GetCell(12) == null) row.CreateCell(12);
                             row.GetCell(12).SetCellValue(reader["f"].ToString());
 
                             i++;
