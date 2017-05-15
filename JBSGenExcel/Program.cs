@@ -22,28 +22,28 @@ namespace JBSGenExcel
         static string VaRegulerPremi = "VARegulerPremi" + DateTime.Now.ToString("yyyyMMdd") + ".xls";
         static void Main(string[] args)
         {
-            //if (args[0] == "mandiricc")
-            //{
+            if (args[0] == "mandiricc")
+            {
                 FileInfo FileName = new FileInfo(DirBilling + MandiriccFile);
                 if (!FileName.Exists)
                 {
                     genMandiriCC();
                 }
-            //}
-            //else if (args[0] == "bcaac")
-            //{
-            //    FileInfo FileName = new FileInfo(DirBilling + BCAacFile);
-            //    if (!FileName.Exists)
-            //    {
-            //        genBCAac();
-            //    }
-            //}
-            //else if (args[0] == "va")
-            //{
-            //    FileInfo FileName = new FileInfo(DirBilling + VaRegulerPremi);
-            //    if (FileName.Exists) { FileName.Delete(); }
-            //    genVARegulerPremi();
-            //}
+            }
+            else if (args[0] == "bcaac")
+            {
+                FileInfo FileName = new FileInfo(DirBilling + BCAacFile);
+                if (!FileName.Exists)
+                {
+                    genBCAac();
+                }
+            }
+            else if (args[0] == "va")
+            {
+                FileInfo FileName = new FileInfo(DirBilling + VaRegulerPremi);
+                if (FileName.Exists) { FileName.Delete(); }
+                genVARegulerPremi();
+            }
         }
         public static void genMandiriCC()
         {
