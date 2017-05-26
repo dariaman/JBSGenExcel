@@ -28,15 +28,15 @@ namespace JBSGenExcel
                 if (!FileName.Exists)
                 {
                     genMandiriCC();
-                }
-            }
+        }
+    }
             else if (args[0] == "bcaac")
             {
                 FileInfo FileName = new FileInfo(DirBilling + BCAacFile);
                 if (!FileName.Exists)
                 {
                     genBCAac();
-                }
+}
             }
             else if (args[0] == "va")
             {
@@ -50,6 +50,7 @@ namespace JBSGenExcel
             MySqlConnection con = new MySqlConnection(constring);
             HSSFWorkbook hssfwb;
             MySqlCommand cmd;
+            MySqlCommand cmd2;
             FileInfo FileName;
             try
             {
@@ -63,9 +64,6 @@ namespace JBSGenExcel
                     Exception ex = new Exception("File template tidak ditemukan");
                     throw ex;
                 }
-                cmd = new MySqlCommand("BillingMandiriCC_sp", con);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
             }
             catch (Exception ex)
             {
@@ -77,19 +75,29 @@ namespace JBSGenExcel
                 hssfwb = new HSSFWorkbook(file);
             }
 
+            cmd = new MySqlCommand("BillingMandiriCC_sp", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd2 = new MySqlCommand(@"SELECT COUNT(1) AS jlh, SUM(b.`TotalAmount`) AS total
+                                    FROM `billing` b
+                                    WHERE b.`IsDownload`= 1 AND b.`BankIdDownload`= 2; ", con);
+            cmd2.CommandType = System.Data.CommandType.Text;
             using (FileStream file = new FileStream(FileName.FullName.ToString(), FileMode.Create, FileAccess.ReadWrite))
             {
                 con.Open();
+
+                ISheet sheet = hssfwb.GetSheet("sheet1");
+                IRow row;
+
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     try
                     {
-                        ISheet sheet = hssfwb.GetSheet("sheet1");
                         int j = 1;
                         int i = 15;
                         while (reader.Read())
                         {
-                            IRow row = sheet.GetRow(i);
+                            row = sheet.GetRow(i);
                             if (row == null)  row = sheet.CreateRow(i);
                             if (row.GetCell(0) == null) row.CreateCell(0);
                             row.GetCell(0).SetCellValue(j);
@@ -113,16 +121,36 @@ namespace JBSGenExcel
                     catch (Exception ex) { throw ex; }
                     finally
                     {
-                        hssfwb.Write(file);
-                        file.Close();
-                        con.Dispose();
-                        con.Close();
+                        reader.Close();
                     }
                 }
+
+                try
+                {
+                    using (MySqlDataReader reader2 = cmd2.ExecuteReader())
+                    {
+                        while (reader2.Read())
+                        {
+                            row = sheet.GetRow(11);
+                            //if (row.GetCell(4) == null) row.CreateCell(4);
+                            row.GetCell(4).SetCellValue(reader2["jlh"].ToString());
+                            row = sheet.GetRow(12);
+                            //if (row.GetCell(4) == null) row.CreateCell(4);
+                            row.GetCell(4).SetCellValue(reader2["total"].ToString());
+                        }
+                    }
+                }
+                catch (Exception ex) { throw ex; }
+                finally
+                {
+                    hssfwb.Write(file);
+                    file.Close();
+                    con.Dispose();
+                    con.Close();
+                }
+                
             }
-
         }
-
         public static void genBCAac()
         {
             MySqlConnection con = new MySqlConnection(constring);
@@ -179,10 +207,8 @@ namespace JBSGenExcel
                             row.CreateCell(8).SetCellValue(reader["i"].ToString());
                             row.CreateCell(9).SetCellValue(reader["j"].ToString());
 
-
                             i++;
                         }
-
                     }
                     catch (Exception ex)
                     {
@@ -198,7 +224,6 @@ namespace JBSGenExcel
                 }
             }
         }
-
         public static void genVARegulerPremi()
         {
             MySqlConnection con = new MySqlConnection(constring);
@@ -233,7 +258,6 @@ namespace JBSGenExcel
                             row.CreateCell(2).SetCellValue(reader["c"].ToString());
                             i++;
                         }
-
                     }
                     catch (Exception ex)
                     {
