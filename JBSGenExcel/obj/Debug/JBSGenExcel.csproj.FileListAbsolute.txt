@@ -16,8 +16,6 @@ C:\Users\dariaman.siagian\Documents\CAF\CAF.JBS\JBSGenExcel\JBSGenExcel\bin\Debu
 C:\Users\dariaman.siagian\Documents\CAF\CAF.JBS\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.exe
 C:\Users\dariaman.siagian\Documents\CAF\CAF.JBS\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.pdb
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\JBSGenExcel.exe.config
-C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.exe
-C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.pdb
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\JBSGenExcel.exe
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\JBSGenExcel.pdb
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\ICSharpCode.SharpZipLib.dll
@@ -25,6 +23,7 @@ C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.d
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.OOXML.dll
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.OpenXml4Net.dll
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.OpenXmlFormats.dll
-C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\MySql.Data.xml
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\bin\Debug\NPOI.xml
+C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.exe
+C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.pdb
 C:\Users\dariaman.siagian\Documents\CAF\JBSGenExcel\JBSGenExcel\obj\Debug\JBSGenExcel.csprojResolveAssemblyReference.cache
