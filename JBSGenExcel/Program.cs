@@ -32,18 +32,12 @@ namespace JBSGenExcel
                 if (args[0] == "mandiricc")
                 {
                     FileInfo FileName = new FileInfo(DirBilling + MandiriccFile);
-                    if (!FileName.Exists)
-                    {
-                        genMandiriCC();
-                    }
+                    if (!FileName.Exists) genMandiriCC();
                 }
                 else if (args[0] == "bcaac")
                 {
                     FileInfo FileName = new FileInfo(DirBilling + BCAacFile);
-                    if (!FileName.Exists)
-                    {
-                        genBCAac();
-                    }
+                    if (!FileName.Exists) genBCAac();
                 }
                 else if (args[0] == "va")
                 {
@@ -54,50 +48,26 @@ namespace JBSGenExcel
                 else if (args[0] == "resultmandiricc")
                 {
                     FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
-                    if (FileName.Exists)
-                    {
-                        resultMandiricc(FileName);
-                    }
-                    else
-                    {
-                        throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
-                    }
+                    if (FileName.Exists) resultMandiricc(FileName);
+                    else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
                 }
                 else if (args[0] == "resultmegaonuscc")
                 {
                     FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
-                    if (FileName.Exists)
-                    {
-                        resultMegaOnUscc(FileName);
-                    }
-                    else
-                    {
-                        throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
-                    }
+                    if (FileName.Exists) resultMegaOnUscc(FileName);
+                    else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
                 }
                 else if (args[0] == "resultmegaoffuscc")
                 {
                     FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
-                    if (FileName.Exists)
-                    {
-                        resultMegaOffUscc(FileName);
-                    }
-                    else
-                    {
-                        throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
-                    }
+                    if (FileName.Exists) resultMegaOffUscc(FileName);
+                    else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
                 }
                 else if (args[0] == "resultbnicc")
                 {
                     FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
-                    if (FileName.Exists)
-                    {
-                        resultBNIcc(FileName);
-                    }
-                    else
-                    {
-                        throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
-                    }
+                    if (FileName.Exists) resultBNIcc(FileName);
+                    else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
                 }
             }
             else
