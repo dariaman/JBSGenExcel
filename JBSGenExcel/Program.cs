@@ -359,7 +359,7 @@ namespace JBSGenExcel
                             // Ambil data polis billing yang akan di update
                             cmdjbs.Parameters.Clear();
                             cmdjbs.CommandType = CommandType.StoredProcedure;
-                            cmdjbs.CommandText = @"FindPolisGetBillSeq";
+                            cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
                             cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
                             using (var rd = cmdjbs.ExecuteReader())
                             {
@@ -418,7 +418,7 @@ namespace JBSGenExcel
                                 // ============================ Proses Insert Pilis CC Transaction Life21 ===========================
                                 cmd21.Parameters.Clear();
                                 cmd21.CommandType = CommandType.StoredProcedure;
-                                cmd21.CommandText = @"InsertPolistrans";
+                                cmd21.CommandText = @"InsertPolistransCC";
                                 cmd21.Parameters.Add(new MySqlParameter("@PolisID", MySqlDbType.Int32) { Value = PolicyID });
                                 cmd21.Parameters.Add(new MySqlParameter("@Transdate", MySqlDbType.Date) { Value = BillDate });
                                 cmd21.Parameters.Add(new MySqlParameter("@Seq", MySqlDbType.Int32) { Value = recurring_seq });
@@ -528,7 +528,7 @@ namespace JBSGenExcel
                             // Ambil data polis billing yang akan di update
                             cmdjbs.Parameters.Clear();
                             cmdjbs.CommandType = CommandType.StoredProcedure;
-                            cmdjbs.CommandText = @"FindPolisGetBillSeq";
+                            cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
                             cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
                             using (var rd = cmdjbs.ExecuteReader())
                             {
@@ -652,7 +652,7 @@ namespace JBSGenExcel
                             // Ambil data polis billing yang akan di update
                             cmdjbs.Parameters.Clear();
                             cmdjbs.CommandType = CommandType.StoredProcedure;
-                            cmdjbs.CommandText = @"FindPolisGetBillSeq";
+                            cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
                             cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
                             using (var rd = cmdjbs.ExecuteReader())
                             {
@@ -711,7 +711,7 @@ namespace JBSGenExcel
                             // ============================ Proses Insert Pilis CC Transaction Life21 ===========================
                             cmd21.Parameters.Clear();
                             cmd21.CommandType = CommandType.StoredProcedure;
-                            cmd21.CommandText = @"InsertPolistrans";
+                            cmd21.CommandText = @"InsertPolistransCC";
                             cmd21.Parameters.Add(new MySqlParameter("@PolisID", MySqlDbType.Int32) { Value = PolicyID });
                             cmd21.Parameters.Add(new MySqlParameter("@Transdate", MySqlDbType.Date) { Value = BillDate });
                             cmd21.Parameters.Add(new MySqlParameter("@Seq", MySqlDbType.Int32) { Value = recurring_seq });
@@ -822,7 +822,7 @@ namespace JBSGenExcel
                             // Ambil data polis billing yang akan di update
                             cmdjbs.Parameters.Clear();
                             cmdjbs.CommandType = CommandType.StoredProcedure;
-                            cmdjbs.CommandText = @"FindPolisGetBillSeq";
+                            cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
                             cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
                             using (var rd = cmdjbs.ExecuteReader())
                             {
@@ -946,7 +946,7 @@ namespace JBSGenExcel
                             // Ambil data polis billing yang akan di update
                             cmdjbs.Parameters.Clear();
                             cmdjbs.CommandType = CommandType.StoredProcedure;
-                            cmdjbs.CommandText = @"FindPolisGetBillSeq";
+                            cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
                             cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
                             using (var rd = cmdjbs.ExecuteReader())
                             {
@@ -1005,7 +1005,7 @@ namespace JBSGenExcel
                             // ============================ Proses Insert Pilis CC Transaction Life21 ===========================
                             cmd21.Parameters.Clear();
                             cmd21.CommandType = CommandType.StoredProcedure;
-                            cmd21.CommandText = @"InsertPolistrans";
+                            cmd21.CommandText = @"InsertPolistransCC";
                             cmd21.Parameters.Add(new MySqlParameter("@PolisID", MySqlDbType.Int32) { Value = PolicyID });
                             cmd21.Parameters.Add(new MySqlParameter("@Transdate", MySqlDbType.Date) { Value = BillDate });
                             cmd21.Parameters.Add(new MySqlParameter("@Seq", MySqlDbType.Int32) { Value = recurring_seq });
@@ -1116,7 +1116,7 @@ namespace JBSGenExcel
                             // Ambil data polis billing yang akan di update
                             cmdjbs.Parameters.Clear();
                             cmdjbs.CommandType = CommandType.StoredProcedure;
-                            cmdjbs.CommandText = @"FindPolisGetBillSeq";
+                            cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
                             cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
                             using (var rd = cmdjbs.ExecuteReader())
                             {
@@ -1242,7 +1242,7 @@ namespace JBSGenExcel
                             // Ambil data polis billing yang akan di update
                             cmdjbs.Parameters.Clear();
                             cmdjbs.CommandType = CommandType.StoredProcedure;
-                            cmdjbs.CommandText = @"FindPolisGetBillSeq";
+                            cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
                             cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
                             using (var rd = cmdjbs.ExecuteReader())
                             {
@@ -1302,7 +1302,7 @@ namespace JBSGenExcel
                                 // ============================ Proses Insert Pilis CC Transaction Life21 ===========================
                                 cmd21.Parameters.Clear();
                                 cmd21.CommandType = CommandType.StoredProcedure;
-                                cmd21.CommandText = @"InsertPolistrans";
+                                cmd21.CommandText = @"InsertPolistransCC";
                                 cmd21.Parameters.Add(new MySqlParameter("@PolisID", MySqlDbType.Int32) { Value = PolicyID });
                                 cmd21.Parameters.Add(new MySqlParameter("@Transdate", MySqlDbType.Date) { Value = BillDate });
                                 cmd21.Parameters.Add(new MySqlParameter("@Seq", MySqlDbType.Int32) { Value = recurring_seq });
