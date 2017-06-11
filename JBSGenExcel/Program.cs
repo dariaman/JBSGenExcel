@@ -176,16 +176,18 @@ namespace JBSGenExcel
                     {
                         while (reader2.Read())
                         {
+                            row = sheet.GetRow(4);
+                            row.GetCell(4).SetCellValue("01010452216");
+                            row = sheet.GetRow(5);
+                            row.GetCell(4).SetCellValue("ASURANSI JAGA DIRI RECURRING");
                             row = sheet.GetRow(7);
                             row.GetCell(4).SetCellValue(DateTime.Now.ToString("ddMMyyyy"));
-
                             row = sheet.GetRow(8);
                             row.GetCell(4).SetCellValue("AFI0910121");
                             row = sheet.GetRow(9);
                             row.GetCell(4).SetCellValue("607");
                             row = sheet.GetRow(10);
                             row.GetCell(4).SetCellValue("C");
-
                             row = sheet.GetRow(11);
                             row.GetCell(4).SetCellValue(reader2["jlh"].ToString());
                             row = sheet.GetRow(12);
