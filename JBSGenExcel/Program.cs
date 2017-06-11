@@ -176,7 +176,7 @@ namespace JBSGenExcel
                     {
                         while (reader2.Read())
                         {
-                            row = sheet.GetRow(4);
+                            row = sheet.GetRow(3);
                             row.GetCell(4).SetCellValue("01010452216");
                             row = sheet.GetRow(5);
                             row.GetCell(4).SetCellValue("ASURANSI JAGA DIRI RECURRING");
