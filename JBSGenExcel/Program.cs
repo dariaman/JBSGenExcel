@@ -106,12 +106,26 @@ namespace JBSGenExcel
                 hssfwb = new HSSFWorkbook(file);
             }
 
+            //Untuk data
             cmd = new MySqlCommand("BillingMandiriCC_sp", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-            cmd2 = new MySqlCommand(@"SELECT COUNT(1) AS jlh, SUM(b.`TotalAmount`) AS total
-                                    FROM `billing` b
-                                    WHERE b.`IsDownload`= 1 AND b.`BankIdDownload`= 2; ", con);
+
+            // Untuk Header File Mandiri
+            cmd2 = new MySqlCommand(@"SELECT SUM(jlh) AS jlh,SUM(total) AS total
+                                        FROM(
+	                                        SELECT COUNT(1) AS jlh, SUM(b.`TotalAmount`) AS total
+	                                        FROM `billing` b
+	                                        WHERE b.`IsDownload`= 1 AND b.`BankIdDownload`= 2
+	                                        UNION ALL
+	                                        SELECT COUNT(1) AS jlh, SUM(b.`TotalAmount`) AS total
+	                                        FROM `billing_others` b
+	                                        WHERE b.`IsDownload`= 1 AND b.`BankIdDownload`= 2
+	                                        UNION ALL
+	                                        SELECT COUNT(1) AS jlh, SUM(b.`TotalAmount`) AS total
+	                                        FROM `quote_billing` b
+	                                        WHERE b.`IsDownload`= 1 AND b.`BankIdDownload`= 2
+                                        )a;	", con);
             cmd2.CommandType = System.Data.CommandType.Text;
             using (FileStream file = new FileStream(FileName.FullName.ToString(), FileMode.Create, FileAccess.ReadWrite))
             {
@@ -162,11 +176,19 @@ namespace JBSGenExcel
                     {
                         while (reader2.Read())
                         {
+                            row = sheet.GetRow(7);
+                            row.GetCell(4).SetCellValue(DateTime.Now.ToString("ddMMyyyy"));
+
+                            row = sheet.GetRow(8);
+                            row.GetCell(4).SetCellValue("AFI0910121");
+                            row = sheet.GetRow(9);
+                            row.GetCell(4).SetCellValue("607");
+                            row = sheet.GetRow(10);
+                            row.GetCell(4).SetCellValue("C");
+
                             row = sheet.GetRow(11);
-                            //if (row.GetCell(4) == null) row.CreateCell(4);
                             row.GetCell(4).SetCellValue(reader2["jlh"].ToString());
                             row = sheet.GetRow(12);
-                            //if (row.GetCell(4) == null) row.CreateCell(4);
                             row.GetCell(4).SetCellValue(reader2["total"].ToString());
                         }
                     }
