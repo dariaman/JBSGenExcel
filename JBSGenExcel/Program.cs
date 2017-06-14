@@ -49,26 +49,24 @@ namespace JBSGenExcel
                 }
                 else if (args[0] == "resultmandiricc")
                 {
-                    var trancode = "mandiricc";
                     FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
-                    if (FileName.Exists) resultCC2Sheet(FileName, trancode);
+                    if (FileName.Exists) resultCC2Sheet(FileName, "mandiricc");
                     else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
                     
                 }
-                //else if (args[0] == "resultmegaonuscc")
-                //{
-                //    FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
-                //    if (FileName.Exists) resultMegaOnUscc(FileName);
-                //    else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
-                //    trancode = "megaonuscc";
-                //}
-                //else if (args[0] == "resultmegaoffuscc")
-                //{
-                //    FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
-                //    if (FileName.Exists) resultMegaOffUscc(FileName);
-                //    else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
-                //    trancode = "megaoffuscc";
-                //}
+                else if (args[0] == "resultmegaonuscc")
+                {
+                    FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
+                    if (FileName.Exists) resultCC2Sheet(FileName, "megaonuscc");
+                    else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
+                    
+                }
+                else if (args[0] == "resultmegaoffuscc")
+                {
+                    FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
+                    if (FileName.Exists) resultCC2Sheet(FileName, "megaoffuscc");
+                    else throw new Exception(@"File tidak ditemukan => " + FileName.FullName + "xxxx");
+                }
                 else if (args[0] == "resultbnicc")
                 {
                     FileInfo FileName = new FileInfo(DirResult + args[1].ToString());
@@ -1504,111 +1502,120 @@ namespace JBSGenExcel
                                     Description = sheet.GetRow(row).GetCell(5).ToString().Trim(); // Pada Kolom TC
                                 }
                                 if (NoPolis == "") continue; // nopolis kosong skip
-                                isApprove = (sht==0) ? true : false; // sheet 0 utk  transaksi approve
-                                PaidAmount = Convert.ToDecimal(sheet.GetRow(row).GetCell(2));
-                                if (NoPolis.Substring(0, 1) == "A")
-                                {
-                                    BillOther = NoPolis;
-                                    NoPolis = "";
-                                }
-                                else if (NoPolis.Substring(0, 1) == "X")
-                                {
-                                    quoteID = Convert.ToInt32(NoPolis.Substring(1));
-                                    NoPolis = "";
-                                }
-
-                                if (NoPolis != "")
-                                {
-                                    cmdjbs.Parameters.Clear();
-                                    cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
-                                    cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
-
-                                    using (var rd = cmdjbs.ExecuteReader())
-                                    {
-                                        while (rd.Read())
-                                        {
-                                            PolicyID = Convert.ToInt32(rd["policy_id"]);
-                                            BillingID = Convert.ToInt32(rd["BillingID"]);
-                                            recurring_seq = Convert.ToInt32(rd["recurring_seq"]);
-                                            BillDate = Convert.ToDateTime(rd["BillingDate"]);
-                                            DueDatePre = Convert.ToDateTime(rd["due_dt_pre"]);
-                                            BillAmount = Convert.ToDecimal(rd["TotalAmount"]);
-                                            Period = rd["PeriodeBilling"].ToString();
-                                            CycleDate = Convert.ToInt32(rd["cycleDate"]);
-                                            CCno = rd["cc_no"].ToString();
-                                            CCexp = rd["cc_expiry"].ToString();
-                                            ccName = rd["cc_name"].ToString();
-                                            addr = rd["cc_address"].ToString();
-                                            telp = rd["cc_telephone"].ToString();
-                                            Life21TranID = rd["Life21TranID"].Equals(DBNull.Value) ? 0 : Convert.ToInt32(rd["Life21TranID"]);
-                                        }
-
-                                        if (PolicyID < 1)
-                                        {
-                                            throw new Exception("Polis {" + NoPolis + "} tidak ditemukan,mungkin billingnya tidak dalam status download atau terdapat kesalahan pada data file Upload...");
-                                        }
-                                    }
-                                }// END if (NoPolis != "")
-                                else if (BillOther != "")
-                                {
-                                    cmdjbs.Parameters.Clear();
-                                    cmdjbs.CommandText = @"FindPolisBillOthersCC";
-                                    cmdjbs.Parameters.Add(new MySqlParameter("@BillOthersNo", MySqlDbType.VarChar) { Value = BillOther });
-
-                                    using (var rd = cmdjbs.ExecuteReader())
-                                    {
-                                        while (rd.Read())
-                                        {
-                                            PolicyID = Convert.ToInt32(rd["policy_id"]);
-                                            NoPolis = rd["policy_no"].ToString();
-                                            BillDate = Convert.ToDateTime(rd["BillingDate"]);
-                                            BillAmount = Convert.ToDecimal(rd["TotalAmount"]);
-                                            CCno = rd["cc_no"].ToString();
-                                            CCexp = rd["cc_expiry"].ToString();
-                                            ccName = rd["cc_name"].ToString();
-                                            addr = rd["cc_address"].ToString();
-                                            telp = rd["cc_telephone"].ToString();
-                                            Life21TranID = rd["Life21TranID"].Equals(DBNull.Value) ? 0 : Convert.ToInt32(rd["Life21TranID"]);
-                                        }
-
-                                        if (PolicyID < 1)
-                                        {
-                                            throw new Exception("BillingOthersID {" + BillOther + "} tidak ditemukan,mungkin billingnya tidak dalam status download atau terdapat kesalahan pada data file Upload...");
-                                        }
-                                    }
-                                }// END else if (BillOther != "")
-                                else if (quoteID > 0) // jika transaksi Billing Quote
-                                {
-                                    cmdjbs.Parameters.Clear();
-                                    cmdjbs.CommandText = @"FindQuoteBill";
-                                    cmdjbs.Parameters.Add(new MySqlParameter("@Quoteid", MySqlDbType.Int32) { Value = quoteID });
-
-                                    using (var rd = cmdjbs.ExecuteReader())
-                                    {
-                                        while (rd.Read())
-                                        {
-                                            BillDate = Convert.ToDateTime(rd["BillingDate"]);
-                                            BillAmount = Convert.ToDecimal(rd["TotalAmount"]);
-                                            CCno = rd["acc_no"].ToString();
-                                            CCexp = rd["cc_expiry"].ToString();
-                                            ccName = rd["acc_name"].ToString();
-                                            addr = "";
-                                            telp = "";
-                                        }
-
-                                        if (BillAmount < 1)
-                                            throw new Exception("Billing Quote {" + quoteID.ToString() + "} tidak ditemukan,mungkin billingnya tidak dalam status download atau terdapat kesalahan pada data file Upload...");
-                                    }
-                                } // END else if (quoteID > 0)
+                                PaidAmount = Convert.ToDecimal(sheet.GetRow(row).GetCell(2).ToString().Trim());
                             }
                             else if (trancode == "megaonuscc")
                             {
-
+                                var tmp = sheet.GetRow(row).GetCell(1).ToString().Trim();
+                                NoPolis = tmp.Split('-').Last();
+                                AppCode = sheet.GetRow(row).GetCell(4).ToString().Trim(); 
+                                Description = sheet.GetRow(row).GetCell(5).ToString().Trim(); 
+                                PaidAmount = Convert.ToDecimal(sheet.GetRow(row).GetCell(2).ToString().Trim());
                             }
                             else if (trancode == "megaoffuscc")
                             {
-
+                                var tmp = sheet.GetRow(row).GetCell(1).ToString().Trim();
+                                NoPolis = tmp.Split('-').Last();
+                                AppCode = sheet.GetRow(row).GetCell(4).ToString().Trim();
+                                Description = sheet.GetRow(row).GetCell(5).ToString().Trim();
+                                PaidAmount = Convert.ToDecimal(sheet.GetRow(row).GetCell(2).ToString().Trim());
                             }
+
+                            isApprove = (sht == 0) ? true : false; // sheet 0 utk  transaksi approve
+                            if (NoPolis.Substring(0, 1) == "A")
+                            {
+                                BillOther = NoPolis;
+                                NoPolis = "";
+                            }
+                            else if (NoPolis.Substring(0, 1) == "X")
+                            {
+                                quoteID = Convert.ToInt32(NoPolis.Substring(1));
+                                NoPolis = "";
+                            }
+
+                            if (NoPolis != "")
+                            {
+                                cmdjbs.Parameters.Clear();
+                                cmdjbs.CommandText = @"FindPolisCCGetBillSeq";
+                                cmdjbs.Parameters.Add(new MySqlParameter("@NoPolis", MySqlDbType.VarChar) { Value = NoPolis });
+
+                                using (var rd = cmdjbs.ExecuteReader())
+                                {
+                                    while (rd.Read())
+                                    {
+                                        PolicyID = Convert.ToInt32(rd["policy_id"]);
+                                        BillingID = Convert.ToInt32(rd["BillingID"]);
+                                        recurring_seq = Convert.ToInt32(rd["recurring_seq"]);
+                                        BillDate = Convert.ToDateTime(rd["BillingDate"]);
+                                        DueDatePre = Convert.ToDateTime(rd["due_dt_pre"]);
+                                        BillAmount = Convert.ToDecimal(rd["TotalAmount"]);
+                                        Period = rd["PeriodeBilling"].ToString();
+                                        CycleDate = Convert.ToInt32(rd["cycleDate"]);
+                                        CCno = rd["cc_no"].ToString();
+                                        CCexp = rd["cc_expiry"].ToString();
+                                        ccName = rd["cc_name"].ToString();
+                                        addr = rd["cc_address"].ToString();
+                                        telp = rd["cc_telephone"].ToString();
+                                        Life21TranID = rd["Life21TranID"].Equals(DBNull.Value) ? 0 : Convert.ToInt32(rd["Life21TranID"]);
+                                    }
+
+                                    if (PolicyID < 1)
+                                    {
+                                        throw new Exception("Polis {" + NoPolis + "} tidak ditemukan,mungkin billingnya tidak dalam status download atau terdapat kesalahan pada data file Upload...");
+                                    }
+                                }
+                            }// END if (NoPolis != "")
+                            else if (BillOther != "")
+                            {
+                                cmdjbs.Parameters.Clear();
+                                cmdjbs.CommandText = @"FindPolisBillOthersCC";
+                                cmdjbs.Parameters.Add(new MySqlParameter("@BillOthersNo", MySqlDbType.VarChar) { Value = BillOther });
+
+                                using (var rd = cmdjbs.ExecuteReader())
+                                {
+                                    while (rd.Read())
+                                    {
+                                        PolicyID = Convert.ToInt32(rd["policy_id"]);
+                                        NoPolis = rd["policy_no"].ToString();
+                                        BillDate = Convert.ToDateTime(rd["BillingDate"]);
+                                        BillAmount = Convert.ToDecimal(rd["TotalAmount"]);
+                                        CCno = rd["cc_no"].ToString();
+                                        CCexp = rd["cc_expiry"].ToString();
+                                        ccName = rd["cc_name"].ToString();
+                                        addr = rd["cc_address"].ToString();
+                                        telp = rd["cc_telephone"].ToString();
+                                        Life21TranID = rd["Life21TranID"].Equals(DBNull.Value) ? 0 : Convert.ToInt32(rd["Life21TranID"]);
+                                    }
+
+                                    if (PolicyID < 1)
+                                    {
+                                        throw new Exception("BillingOthersID {" + BillOther + "} tidak ditemukan,mungkin billingnya tidak dalam status download atau terdapat kesalahan pada data file Upload...");
+                                    }
+                                }
+                            }// END else if (BillOther != "")
+                            else if (quoteID > 0) // jika transaksi Billing Quote
+                            {
+                                cmdjbs.Parameters.Clear();
+                                cmdjbs.CommandText = @"FindQuoteBill";
+                                cmdjbs.Parameters.Add(new MySqlParameter("@Quoteid", MySqlDbType.Int32) { Value = quoteID });
+
+                                using (var rd = cmdjbs.ExecuteReader())
+                                {
+                                    while (rd.Read())
+                                    {
+                                        BillDate = Convert.ToDateTime(rd["BillingDate"]);
+                                        BillAmount = Convert.ToDecimal(rd["TotalAmount"]);
+                                        CCno = rd["acc_no"].ToString();
+                                        CCexp = rd["cc_expiry"].ToString();
+                                        ccName = rd["acc_name"].ToString();
+                                        addr = "";
+                                        telp = "";
+                                    }
+
+                                    if (BillAmount < 1)
+                                        throw new Exception("Billing Quote {" + quoteID.ToString() + "} tidak ditemukan,mungkin billingnya tidak dalam status download atau terdapat kesalahan pada data file Upload...");
+                                }
+                            } // END else if (quoteID > 0)
 
                             cmdjbs.Parameters.Clear();
                             cmdjbs.CommandType = CommandType.StoredProcedure;
