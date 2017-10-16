@@ -15,8 +15,6 @@ namespace JBSGenExcel
     class Program
     {
         static string constring = ConfigurationManager.AppSettings["DefaultDB"];
-        static string con21 = ConfigurationManager.AppSettings["Life21DB"];
-        static string con21p = ConfigurationManager.AppSettings["Life21P"];
 
         static string DirBilling = ConfigurationManager.AppSettings["FileBilling"];
         static string DirResult = ConfigurationManager.AppSettings["DirResult"];
@@ -47,10 +45,10 @@ namespace JBSGenExcel
                     if (FileName.Exists) { FileName.Delete(); }
                     genVARegulerPremi();
                 }
-                else if (args[0] == "sync")
-                {
-                    SyncAmountBilling();
-                }
+                //else if (args[0] == "sync")
+                //{
+                //    SyncAmountBilling();
+                //}
             }
             else
             {
@@ -308,76 +306,6 @@ namespace JBSGenExcel
                         con.Close();
                     }
                 }
-            }
-        }
-
-        static void SyncAmountBilling()
-        {
-            MySqlConnection con = new MySqlConnection(constring);
-            MySqlConnection cons21 = new MySqlConnection(con21);
-            MySqlCommand cmd;
-            DataTable dt = new DataTable();
-
-            cmd = new MySqlCommand("GetBillAmount", cons21);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cons21.Open();
-            int jlh;
-            using (MySqlDataReader dr = cmd.ExecuteReader())
-            {
-                dt.Load(dr);
-                jlh = dt.Rows.Count;
-            }
-            cons21.Close();
-
-            cmd = new MySqlCommand("DELETE FROM `dumpbilling`", con);
-            cmd.CommandType = System.Data.CommandType.Text;
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
-            int baris = 0;
-
-            try
-            {
-                while (baris < jlh)
-                {
-                    StringBuilder sCommand = new StringBuilder("INSERT INTO dumpbilling VALUES ");
-                    using (MySqlConnection mConnection = new MySqlConnection(constring))
-                    {
-                        List<string> Rows = new List<string>();
-                        Rows.Clear();
-                        for (int i = 0; i < 1000; i++)
-                        {
-                            Rows.Add(string.Format("('{0}','{1}','{2}','{3}')", dt.Rows[baris][0], dt.Rows[baris][1], dt.Rows[baris][2], dt.Rows[baris][3]));
-                            baris++;
-                            if (baris == jlh) break;
-                        }
-                        sCommand.Append(string.Join(",", Rows));
-                        sCommand.Append(";");
-                        mConnection.Open();
-                        using (MySqlCommand myCmd = new MySqlCommand(sCommand.ToString(), mConnection))
-                        {
-                            myCmd.CommandType = CommandType.Text;
-                            myCmd.ExecuteNonQuery();
-                        }
-                        mConnection.Close();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            try {
-                cmd = new MySqlCommand("DELETE FROM `dumpbilling`", con);
-                cmd.CommandType = System.Data.CommandType.Text;
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
     }
